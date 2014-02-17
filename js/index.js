@@ -1,5 +1,5 @@
-window.previous_8xbiz_select = false;
-var create_xbz_element = function(select) {
+window.previous_godselect = false;
+var create_godelement = function(select) {
     if (!select) return false;
     var element = document.createElement('div');
         select.parentNode.replaceChild(element, select);
@@ -49,7 +49,7 @@ var create_xbz_element = function(select) {
         });
     return element;
 };
-var assign_xbz_element = function(element) {
+var assign_godelement = function(element) {
     if (!element) return false;
     var element_cached = $(element);
     var options_container_cached = $(element.options_container);
@@ -112,10 +112,10 @@ var assign_xbz_element = function(element) {
         element_cached.removeClass('godselect-blur');
     });
     element_cached.on('open', function() {
-        if (window.previous_8xbiz_select) {
-            $(window.previous_8xbiz_select).trigger('close');
+        if (window.previous_godselect) {
+            $(window.previous_godselect).trigger('close');
         }
-        window.previous_8xbiz_select = element;
+        window.previous_godselect = element;
         $(element.options_container).addClass('visible');
         element.visible = true;
         $('.godselect').each(function(i, element_sibling) {
@@ -194,10 +194,10 @@ $(document).ready(function() {
         element.appendChild(input);
         element.input = input;
         element.insertBefore(input, element.options_container[0]);
-        assign_xbz_element(element);
+        assign_godelement(element);
     });
     $('select').each(function(index,select) {
-        assign_xbz_element(create_xbz_element(select));
+        assign_godelement(create_godelement(select));
     });
     $(document).click(function(e) {
         var parent = $(e.target).parent('div.godselect');
