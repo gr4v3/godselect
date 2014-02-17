@@ -14,22 +14,23 @@ var create_godelement = function(select) {
         if (onchange) element.onchangestring = onchange.value; else element.onchangestring = false;
         element.options = new Array();
         var container = document.createElement('input');
-            container.value = select.title;
-            container.saved = select.title;
+        
+        var params = {};
+        if (select.title.length === 0) {
+            params.name = 'default';
+            params.value = null;
+            params.title = 'default';
+        } else eval('params = ' + select.title);
+            container.value = params.value;
+            container.saved = params.value;
             container.type = 'text';
             container.className = 'container';
         element.appendChild(container);
         element.container = container;
         var input = document.createElement('input');
-            var value_attribute = select.attributes.getNamedItem('value');
-            if (value_attribute) input.value = value_attribute.value;
-            else {
-                var size_attribute = select.attributes.getNamedItem('size');
-                if (size_attribute) input.value = size_attribute.value;
-                else input.value = '';
-            }
+            input.value = params.value;
             input.type = 'hidden';
-            input.name = select.name;
+            input.name = params.name;
         element.appendChild(input);
         element.input = input;
         var options_container = document.createElement('ul');
@@ -38,7 +39,7 @@ var create_godelement = function(select) {
         if (select.title.length > 0 ) {
             var option_item = document.createElement('li');
                 option_item.title = '';
-                option_item.innerHTML = select.title;
+                option_item.innerHTML = params.title;
             element.options_container.appendChild(option_item);
         }
         $(select).find('option').each(function(i, option) {
