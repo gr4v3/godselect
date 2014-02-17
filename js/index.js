@@ -4,7 +4,7 @@ var create_xbz_element = function(select) {
     var element = document.createElement('div');
         select.parentNode.replaceChild(element, select);
 	element.name = select.name;
-        element.className = 'xbz_select';
+        element.className = 'godselect';
         element.visible = false;
         element.option_selected = false;
         element.changed = false;
@@ -106,10 +106,10 @@ var assign_xbz_element = function(element) {
         });
     });
     element_cached.on('blur', function() {
-        if ( ! element.changed) element_cached.addClass('xbz_select-blur');
+        if ( ! element.changed) element_cached.addClass('godselect-blur');
     });
     element_cached.on('focus', function() {
-        element_cached.removeClass('xbz_select-blur');
+        element_cached.removeClass('godselect-blur');
     });
     element_cached.on('open', function() {
         if (window.previous_8xbiz_select) {
@@ -118,7 +118,7 @@ var assign_xbz_element = function(element) {
         window.previous_8xbiz_select = element;
         $(element.options_container).addClass('visible');
         element.visible = true;
-        $('.xbz_select').each(function(i, element_sibling) {
+        $('.godselect').each(function(i, element_sibling) {
             if (element_sibling.input.value.length !== 0) $(element_sibling).trigger('focus');
             else $(element_sibling).trigger('blur');
         });
@@ -168,7 +168,7 @@ var assign_xbz_element = function(element) {
     if (!element.option_selected) $(element).trigger('blur');
 };
 $(document).ready(function() {
-    $('.xbz_select').each(function(index,element) {
+    $('.godselect').each(function(index,element) {
         var name = element.attributes.getNamedItem('name');
         if (name) element.name = name.value; else element.name = false;
         element.visible = false;
@@ -200,10 +200,10 @@ $(document).ready(function() {
         assign_xbz_element(create_xbz_element(select));
     });
     $(document).click(function(e) {
-        var parent = $(e.target).parent('div.xbz_select');
+        var parent = $(e.target).parent('div.godselect');
         if (parent.length === 0) {
-            $('.xbz_select').trigger('close');
-            $('.xbz_select').each(function(i, element){
+            $('.godselect').trigger('close');
+            $('.godselect').each(function(i, element){
                 if (element.input.value.length !== 0) $(element).trigger('focus');
                 else $(element).trigger('blur');
             });
@@ -211,7 +211,7 @@ $(document).ready(function() {
     });
     /*
     $(document).keydown(function(e) {
-        var active = $(document).find('.xbz_select ul.visible');
+        var active = $(document).find('.godselect ul.visible');
         if (active && active[0]) {
             var element = active[0].parentElement;
             switch (e.keyCode) {
@@ -243,7 +243,7 @@ $(document).ready(function() {
     });
     */
     $(document).keyup(function(e) {
-        var active = $(document).find('.xbz_select ul.visible');
+        var active = $(document).find('.godselect ul.visible');
         if (active && active[0]) {
             var element = active[0].parentElement;
             switch (e.keyCode) {
