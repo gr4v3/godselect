@@ -1,13 +1,13 @@
 /** Setting default dimensions/features for the 8xbiz costumized select boxes **/
 /* BEGIN STRUCTURE */
-div.xbz_select * {
+div.godselect * {
   user-select: none;
   -khtml-user-select: none;
   -o-user-select: none;
   -moz-user-select: -moz-none;
   -webkit-user-select: none;
 }
-div.xbz_select {
+div.godselect {
   cursor: pointer;
   margin: 0;
   padding: 0;
@@ -16,7 +16,7 @@ div.xbz_select {
   z-index: 0;
   width: 200px;
 }
-div.xbz_select input {
+div.godselect input {
   margin: 0;
   padding: 0;
   text-indent: 2px;
@@ -28,10 +28,10 @@ div.xbz_select input {
   background-position: 95% center;
   background-repeat: no-repeat;
 }
-div.xbz_select input:focus {
+div.godselect input:focus {
   outline: 0;
 }
-div.xbz_select ul {
+div.godselect ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -44,7 +44,7 @@ div.xbz_select ul {
   display: none;
   z-index: 1;
 }
-div.xbz_select ul li {
+div.godselect ul li {
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
@@ -52,33 +52,33 @@ div.xbz_select ul li {
   transition: all 0.1s ease-in-out;
   border-radius: 0;
 }
-div.xbz_select .visible {
+div.godselect .visible {
   display: block;
   z-index: 999;
 }
 /* END STRUCTURE */
 /** Default classes for the 8xbiz costumized select boxes **/
 /* BEGIN DEFAULT */
-div.xbz_select,
-div.xbz_select ul {
+div.godselect,
+div.godselect ul {
   background-color: darkgrey;
   font-weight: 200;
   color: white;
   text-transform: uppercase;
 }
-div.xbz_select ul ul {
+div.godselect ul ul {
   width: auto;
   position: static;
 }
-div.xbz_select ul ul li {
+div.godselect ul ul li {
   padding: 2px 2px 2px 15px;
 }
-div.xbz_select ul li {
+div.godselect ul li {
   margin: 2px;
   padding: 2px;
 }
-div.xbz_select ul li:hover,
-div.xbz_select ul li.selected {
+div.godselect ul li:hover,
+div.godselect ul li.selected {
   background-color: lightgrey;
 }
 /* END DEFAULT */
