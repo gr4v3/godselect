@@ -75,7 +75,7 @@ var assign_godelement = function(element) {
                     element.option_selected = $(this);
                     element.option_selected.addClass('selected');
                     if (!element.visible) element_cached.trigger('open');
-                    //$(element).trigger('scrollit');
+                    $(element).trigger('scrollit');
                 } else $(this).removeClass('selected');
             });
             option_element_cached.on('clear', function() {
