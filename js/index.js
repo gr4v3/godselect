@@ -80,8 +80,9 @@ var assign_godelement = function(element) {
     if (!element) return false;
     var element_cached = $(element);
     var element_container_cached = $(element.container);
-    var options_container_cached = $(element.options_container);
-    
+    var options_container_cached = $($(element.options_container)[0]);
+    console.log(options_container_cached);
+        options_container_cached.addClass('options');
     options_container_cached.find('li').each(function(i,option_element) {
         var option_element_cached = $(option_element);
         if (option_element.title.length > 0) { 
@@ -154,7 +155,14 @@ var assign_godelement = function(element) {
     element_cached.on('open', function() {
         if (window.previous_godselect) $(window.previous_godselect).trigger('close');
         window.previous_godselect = element;
-        $(element.options_container).addClass('visible');
+        
+        var border_bottom = parseInt(element_cached.css('border-bottom-width') || element_cached.css('border-width'));
+        var padding_bottom = parseInt(element_cached.css('padding-bottom') || element_cached.css('padding'));
+        var margin_bottom = parseInt(element_cached.css('margin-bottom') || element_cached.css('margin'));
+        
+        options_container_cached.css('margin-top', (border_bottom + padding_bottom + margin_bottom + 1));
+        options_container_cached.css('margin-left', (0 - border_bottom - padding_bottom - margin_bottom));
+        options_container_cached.addClass('visible');
         element.visible = true;
         $('.godselect').each(function(i, element_sibling) {
             if (element_sibling.input.value.length !== 0) $(element_sibling).trigger('focus');
@@ -164,8 +172,8 @@ var assign_godelement = function(element) {
         element_cached.trigger('scrollit');
     });
     element_cached.on('close', function() {
-        $(element.options_container).removeClass('visible');
-        $(element.options_container).find('li').trigger('clear');
+        options_container_cached.removeClass('visible');
+        options_container_cached.find('li').trigger('clear');
         element.visible = false;
         if (element.input.value.length === 0) element_cached.trigger('blur');
     });
@@ -202,7 +210,7 @@ var assign_godelement = function(element) {
     element_cached.mouseleave(function() {
         element.mousein = false;
         element.timeout = setTimeout(function() {
-            element_cached.trigger('close');
+            //element_cached.trigger('close');
         },3000);
     });
     if (!element.option_selected) $(element).trigger('blur');

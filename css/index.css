@@ -10,11 +10,16 @@ div.godselect * {
 div.godselect {
   cursor: pointer;
   margin: 0;
-  padding: 0;
-  border-radius: 4px;
   letter-spacing: 1px;
   z-index: 0;
-  width: 200px;
+}
+div.godselect > ul.options {
+   padding: 0; 
+}
+
+div.godselect, div.godselect > ul.options {
+  width: 180px;
+  border-radius: 2px;
 }
 div.godselect input {
   margin: 0;
@@ -33,24 +38,29 @@ div.godselect input:focus {
 }
 div.godselect ul {
   list-style: none;
-  margin: 0;
   padding: 0;
   border-radius: 0;
   border-top-width: 0px;
-  margin-top: 2px;
+}
+div.godselect > ul {
+  list-style: none;
+  padding: 0;
+  border-radius: 0;
+  border-top-width: 0px;
   max-height: 200px;
   overflow: auto;
   position: absolute;
   display: none;
   z-index: 1;
 }
+
 div.godselect ul li {
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
-  border-radius: 0;
+
 }
 div.godselect .visible {
   display: block;
@@ -70,15 +80,38 @@ div.godselect ul ul {
   width: auto;
   position: static;
 }
-div.godselect ul ul li {
-  padding: 2px 2px 2px 15px;
+div.godselect li {
+  margin: 1px;
+  padding: 1px;
+  border-radius: 1px;
 }
-div.godselect ul li {
-  margin: 2px;
-  padding: 2px;
+div.godselect ul ul {
+  padding: 1px;
+}
+div.godselect ul ul li {
+  margin: 0;
+  padding: 1px;
+  border-radius: 1px;
 }
 div.godselect ul li:hover,
 div.godselect ul li.selected {
   background-color: lightgrey;
 }
 /* END DEFAULT */
+
+body {
+    margin:10px;
+}
+div.godselect {
+    padding: 2px;
+}
+div.godselect, div.godselect ul {
+    background-color:#afd9ee;
+}
+div.godselect-focus, div.godselect-focus ul {
+    background-color:#3276b1 !important;
+}
+div.godselect ul li:hover,
+div.godselect ul li.selected {
+  background-color:#afd9ee;
+}
