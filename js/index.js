@@ -13,17 +13,13 @@ var create_godelement = function(select) {
         var onchange = select.attributes.getNamedItem('onchange');
         if (onchange) element.onchangestring = onchange.value; else element.onchangestring = false;
         element.options = new Array();
-        var container = document.createElement('input');
-        
+        var container = document.createElement('input');   
         var params = {};
         if (select.title.length === 0) {
             params.name = 'default';
             params.value = null;
             params.title = 'default';
         } else eval('params = ' + select.title);
-        
-            
-        
             container.value = params.title;
             container.saved = params.value;
             container.type = 'text';
@@ -56,7 +52,9 @@ var create_godelement = function(select) {
 var assign_godelement = function(element) {
     if (!element) return false;
     var element_cached = $(element);
+    var element_container_cached = $(element.container);
     var options_container_cached = $(element.options_container);
+    
     options_container_cached.find('li').each(function(i,option_element) {
         var option_element_cached = $(option_element);
         if (option_element.title.length > 0) { 
@@ -110,10 +108,20 @@ var assign_godelement = function(element) {
         });
     });
     element_cached.on('blur', function() {
-        if ( ! element.changed) element_cached.addClass('godselect-blur');
+        if ( ! element.changed) element_container_cached.trigger('blur');
     });
     element_cached.on('focus', function() {
+        element_container_cached.trigger('focus');
+    });
+    element_container_cached.on('focus',function() {
+        console.log('element focused...');
         element_cached.removeClass('godselect-blur');
+        element_cached.addClass('godselect-focus');
+    });
+    element_container_cached.on('blur',function() {
+        console.log('element blured...');
+        element_cached.addClass('godselect-blur');
+        element_cached.removeClass('godselect-focus');
     });
     element_cached.on('open', function() {
         if (window.previous_godselect) {
@@ -138,6 +146,7 @@ var assign_godelement = function(element) {
     element_cached.on('scrollit', function() {
         var selected_option = element_cached.find('.selected');
         if (selected_option && selected_option.length > 0) {
+            if (!element.visible) element_cached.trigger('open');
             element.options_container.scrollTop = selected_option[0].offsetTop - 2;
         }
     });
@@ -254,9 +263,10 @@ $(document).ready(function() {
     });
     */
     $(document).keyup(function(e) {
-        var active = $(document).find('.godselect ul.visible');
+        var active = $(document).find('.godselect-focus');
+        console.log(active);
         if (active && active[0]) {
-            var element = active[0].parentElement;
+            var element = active[0];
             switch (e.keyCode) {
                 case 8:
                     e.preventDefault();
@@ -282,7 +292,7 @@ $(document).ready(function() {
                 default:
                     var code = e.which | e.keyCode;
                     element.buffer+= String.fromCharCode(code);
-                    element.container.value = element.buffer;     
+                    element.container.value = element.buffer;
                     $(element.options_container).find('li').trigger('search');
             }
         }
