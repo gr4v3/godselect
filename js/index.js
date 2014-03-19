@@ -28,7 +28,7 @@ var create_godelement = function(select) {
         element.appendChild(container);
         element.container = container;
         var input = document.createElement('input');
-            input.value = params.value;
+            input.value = params.title;
             input.type = 'hidden';
             input.name = params.name;
         element.appendChild(input);
@@ -169,10 +169,14 @@ var assign_godelement = function(element) {
     if (!element.option_selected) $(element).trigger('blur');
 };
 $(document).ready(function() {
-    $('.godselect').each(function(index,element) {
-        var name = element.attributes.getNamedItem('name');
-        if (name) element.name = name.value; else element.name = false;
-        element.visible = false;
+    $('div.godselect').each(function(index,element) {
+        var params = {};
+        if (element.title.length === 0) {
+            params.name = 'default';
+            params.value = null;
+            params.title = 'default';
+        } else eval('params = ' + element.title);
+        element.name = params.name;
         element.option_selected = false;
         element.changed = false;
         element.buffer = '';
@@ -182,16 +186,16 @@ $(document).ready(function() {
         var element_cached = $(element);
         element.options_container = element_cached.find('ul');
         var container = document.createElement('input');
-            container.value = element.title;
+            container.value = params.value;
             container.saved = '';
             container.type = 'text';
             container.className = 'container';
         element.insertBefore(container, element.options_container[0]);
         element.container = container;
         var input = document.createElement('input');
-            input.value = element.title;
+            input.value = params.value;
             input.type = 'hidden';
-            input.name = element.name;
+            input.name = params.name;
         element.appendChild(input);
         element.input = input;
         element.insertBefore(input, element.options_container[0]);
