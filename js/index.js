@@ -297,7 +297,7 @@ $(document).ready(function() {
         }
     });
     */
-    $(document).keyup(function(e) {
+    $(document).keypress(function(e) {
         var active = $(document).find('.godselect-focus');
         if (active && active[0]) {
             var element = active[0];
@@ -305,7 +305,7 @@ $(document).ready(function() {
                 case 8:
                     e.preventDefault();
                     element.buffer = element.buffer.slice(0, element.buffer.length - 1);
-                    element.container.value = element.buffer;    
+                    //element.container.value = element.buffer;    
                     $(element.options_container).find('li').trigger('search');
                     break;
                 case 13:
@@ -326,7 +326,7 @@ $(document).ready(function() {
                 default:
                     var code = e.which | e.keyCode;
                     element.buffer+= String.fromCharCode(code);
-                    element.container.value = element.buffer;
+                    //element.container.value = element.buffer;
                     $(element.options_container).find('li').trigger('search');
             }
         }
