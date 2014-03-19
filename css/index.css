@@ -86,12 +86,15 @@ div.godselect li {
   border-radius: 1px;
 }
 div.godselect ul ul {
-  padding: 1px;
+  padding: 1px 1px;
 }
 div.godselect ul ul li {
-  margin: 0;
+  margin: 1px 0px 0px 0px;
   padding: 1px;
   border-radius: 1px;
+}
+div.godselect ul li ul > li:nth-child(1) {
+  margin-top:0px;
 }
 div.godselect ul li:hover,
 div.godselect ul li.selected {
