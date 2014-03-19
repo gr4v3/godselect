@@ -74,7 +74,8 @@ var assign_godelement = function(element) {
                 if (result >= 0) {
                     element.option_selected = $(this);
                     element.option_selected.addClass('selected');
-                    $(element).trigger('scrollit');
+                    if (!element.visible) element_cached.trigger('open');
+                    //$(element).trigger('scrollit');
                 } else $(this).removeClass('selected');
             });
             option_element_cached.on('clear', function() {
@@ -124,9 +125,7 @@ var assign_godelement = function(element) {
         element_cached.removeClass('godselect-focus');
     });
     element_cached.on('open', function() {
-        if (window.previous_godselect) {
-            $(window.previous_godselect).trigger('close');
-        }
+        if (window.previous_godselect) $(window.previous_godselect).trigger('close');
         window.previous_godselect = element;
         $(element.options_container).addClass('visible');
         element.visible = true;
@@ -145,9 +144,10 @@ var assign_godelement = function(element) {
     });
     element_cached.on('scrollit', function() {
         var selected_option = element_cached.find('.selected');
-        if (selected_option && selected_option.length > 0) {
-            if (!element.visible) element_cached.trigger('open');
-            element.options_container.scrollTop = selected_option[0].offsetTop - 2;
+        if (selected_option.length > 0) {
+            //var top = selected_option.offset().top;
+            //$(element.options_container).scrollTop(top);
+            selected_option[0].scrollIntoViewIfNeeded(true);
         }
     });
     element_cached.on('select', function() {
@@ -264,7 +264,6 @@ $(document).ready(function() {
     */
     $(document).keyup(function(e) {
         var active = $(document).find('.godselect-focus');
-        console.log(active);
         if (active && active[0]) {
             var element = active[0];
             switch (e.keyCode) {
