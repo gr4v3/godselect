@@ -1,4 +1,4 @@
-/** Setting default dimensions/features for the 8xbiz costumized select boxes **/
+/** Setting default dimensions/features for the god costumized select boxes **/
 /* BEGIN STRUCTURE */
 div.godselect * {
   user-select: none;
@@ -57,7 +57,7 @@ div.godselect .visible {
   z-index: 999;
 }
 /* END STRUCTURE */
-/** Default classes for the 8xbiz costumized select boxes **/
+/** Default classes for the god costumized select boxes **/
 /* BEGIN DEFAULT */
 div.godselect,
 div.godselect ul {
