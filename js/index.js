@@ -81,7 +81,6 @@ var assign_godelement = function(element) {
     var element_cached = $(element);
     var element_container_cached = $(element.container);
     var options_container_cached = $($(element.options_container)[0]);
-    console.log(options_container_cached);
         options_container_cached.addClass('options');
     options_container_cached.find('li').each(function(i,option_element) {
         var option_element_cached = $(option_element);
@@ -98,7 +97,7 @@ var assign_godelement = function(element) {
                     return false;
                 }
                 var text = $(this).text();
-                var result = text.toLowerCase().search(element.buffer.toLowerCase());
+                var result = text.search(element.buffer);
                 if (result >= 0) {
                     element.option_selected = $(this);
                     element.option_selected.addClass('selected');
@@ -108,7 +107,6 @@ var assign_godelement = function(element) {
             });
             option_element_cached.on('clear', function() {
                 if (this.title !== element.input.value) $(this).removeClass('selected');
-                //else element.container.value = $(this).text();
             });
             option_element_cached.on('select_option', function() {
                 element.option_selected.removeClass('selected');
@@ -143,12 +141,10 @@ var assign_godelement = function(element) {
         element_container_cached.trigger('focus');
     });
     element_container_cached.on('focus',function() {
-        console.log('element focused...');
         element_cached.removeClass('godselect-blur');
         element_cached.addClass('godselect-focus');
     });
     element_container_cached.on('blur',function() {
-        console.log('element blured...');
         element_cached.addClass('godselect-blur');
         element_cached.removeClass('godselect-focus');
     });
@@ -179,11 +175,7 @@ var assign_godelement = function(element) {
     });
     element_cached.on('scrollit', function() {
         var selected_option = element_cached.find('.selected');
-        if (selected_option.length > 0) {
-            //var top = selected_option.offset().top;
-            //$(element.options_container).scrollTop(top);
-            selected_option[0].scrollIntoViewIfNeeded(true);
-        }
+        if (selected_option.length > 0) selected_option[0].scrollIntoViewIfNeeded(true);
     });
     element_cached.on('select', function() {
         var selected = options_container_cached.find('li.selected');
@@ -264,22 +256,11 @@ $(document).ready(function() {
             });
         }
     });
-    /*
-    $(document).keydown(function(e) {
-        var active = $(document).find('.godselect ul.visible');
+   $(document).keydown(function(e) {
+        var active = $(document).find('.godselect-focus');
         if (active && active[0]) {
-            var element = active[0].parentElement;
+            var element = active[0];
             switch (e.keyCode) {
-                case 8:
-                    e.preventDefault();
-                    element.buffer = element.buffer.slice(0, element.buffer.length - 1);
-                    element.container.value = element.buffer;    
-                    $(element.options_container).find('li').trigger('search');
-                    break;
-                case 13:
-                    e.preventDefault();
-                    $(element).trigger('select');
-                    break;
                 case 27:
                     e.preventDefault();
                     break;
@@ -296,10 +277,19 @@ $(document).ready(function() {
             }
         }
     });
-    */
-    $(document).keypress(function(e) {
+    $(document).keyup(function(e) {
         var active = $(document).find('.godselect-focus');
         if (active && active[0]) {
+            var element = active[0];
+            if (e.keyCode === 13) {
+                 e.preventDefault();
+                 $(element).trigger('select');
+                 return false;
+            } else if (e.keyCode !== 38 && e.keyCode !== 40) {
+                element.buffer = element.container.value;
+                $(element.options_container).find('li').trigger('search');
+            }
+            /*
             var element = active[0];
             switch (e.keyCode) {
                 case 8:
@@ -325,10 +315,14 @@ $(document).ready(function() {
                     break;
                 default:
                     var code = e.which | e.keyCode;
-                    element.buffer+= String.fromCharCode(code);
+                    var letter = String.fromCharCode(code);
+                    element.buffer+= letter;
+                    console.log(letter);
+                    console.log(element.buffer);
                     //element.container.value = element.buffer;
                     $(element.options_container).find('li').trigger('search');
             }
+            */
         }
     });
     

@@ -74,7 +74,7 @@ div.godselect ul {
   background-color: darkgrey;
   font-weight: 200;
   color: white;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 div.godselect ul ul {
   width: auto;
@@ -90,7 +90,7 @@ div.godselect ul ul {
 }
 div.godselect ul ul li {
   margin: 1px 0px 0px 0px;
-  padding: 1px;
+  padding: 1px 1px 1px 10px;
   border-radius: 1px;
 }
 div.godselect ul li ul > li:nth-child(1) {
