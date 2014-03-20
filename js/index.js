@@ -238,7 +238,7 @@ var init_godelement = function(element) {
     element.input = input;
     element.insertBefore(input, element.options_container[0]);
     return element;
-}
+};
 $(document).ready(function() {
     $('div.godselect').each(function(index,element) {
         assign_godelement(init_godelement(element));
