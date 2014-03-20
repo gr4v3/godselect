@@ -261,6 +261,10 @@ $(document).ready(function() {
         if (active && active[0]) {
             var element = active[0];
             switch (e.keyCode) {
+                case 8:
+                    element.buffer = element.container.value;
+                    $(element.options_container).find('li').trigger('search');
+                    break;
                 case 27:
                     e.preventDefault();
                     break;
@@ -275,6 +279,7 @@ $(document).ready(function() {
                 default:
                     return true;
             }
+            return true;
         }
     });
     $(document).keyup(function(e) {
@@ -289,40 +294,6 @@ $(document).ready(function() {
                 element.buffer = element.container.value;
                 $(element.options_container).find('li').trigger('search');
             }
-            /*
-            var element = active[0];
-            switch (e.keyCode) {
-                case 8:
-                    e.preventDefault();
-                    element.buffer = element.buffer.slice(0, element.buffer.length - 1);
-                    //element.container.value = element.buffer;    
-                    $(element.options_container).find('li').trigger('search');
-                    break;
-                case 13:
-                    e.preventDefault();
-                    $(element).trigger('select');
-                    break;
-                case 27:
-                    e.preventDefault();
-                    break;
-                case 38:
-                    e.preventDefault();
-                    $(element).trigger('up');
-                    break;
-                case 40:
-                    e.preventDefault();
-                    $(element).trigger('down');
-                    break;
-                default:
-                    var code = e.which | e.keyCode;
-                    var letter = String.fromCharCode(code);
-                    element.buffer+= letter;
-                    console.log(letter);
-                    console.log(element.buffer);
-                    //element.container.value = element.buffer;
-                    $(element.options_container).find('li').trigger('search');
-            }
-            */
         }
     });
     
